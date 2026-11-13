@@ -1,0 +1,155 @@
+{
+  "entities": {
+    "StokAksesoris": {
+      "title": "StokAksesoris",
+      "description": "Katalog dan stok produk aksesoris dan sparepart konter",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string" },
+        "name": { "type": "string" },
+        "brand": { "type": "string" },
+        "variant": { "type": "string" },
+        "costPrice": { "type": "number" },
+        "sellingPrice": { "type": "number" },
+        "stock": { "type": "number" },
+        "minStockAlert": { "type": "number" },
+        "isImeiTracked": { "type": "boolean" },
+        "unit": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["code", "name", "sellingPrice", "stock"]
+    },
+    "HpImei": {
+      "title": "HpImei",
+      "description": "Katalog smartphone dan pelacakan unit IMEI",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string" },
+        "name": { "type": "string" },
+        "brand": { "type": "string" },
+        "model": { "type": "string" },
+        "variant": { "type": "string" },
+        "costPrice": { "type": "number" },
+        "sellingPrice": { "type": "number" },
+        "stock": { "type": "number" },
+        "minStockAlert": { "type": "number" },
+        "isImeiTracked": { "type": "boolean" },
+        "unit": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["code", "name", "sellingPrice"]
+    },
+    "HpSerial": {
+      "title": "HpSerial",
+      "description": "Nomor seri dan IMEI unit smartphone",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "phoneId": { "type": "string" },
+        "imei1": { "type": "string" },
+        "imei2": { "type": "string" },
+        "serialNumber": { "type": "string" },
+        "color": { "type": "string" },
+        "ramStorage": { "type": "string" },
+        "status": { "type": "string", "enum": ["available", "sold"] },
+        "purchasePrice": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["imei1", "status"]
+    },
+    "DigitalTransaction": {
+      "title": "DigitalTransaction",
+      "description": "Transaksi layanan keagenan BRILink, transfer bank, tarik tunai, e-wallet, PPOB, dan mutasi saldo",
+      "type": "object",
+      "properties": {
+        "id": { "type": "number" },
+        "type": { "type": "string" },
+        "provider": { "type": "string" },
+        "targetAccount": { "type": "string" },
+        "customerName": { "type": "string" },
+        "nominal": { "type": "number" },
+        "adminBankCost": { "type": "number" },
+        "adminStoreFee": { "type": "number" },
+        "totalCustomerPaid": { "type": "number" },
+        "profit": { "type": "number" },
+        "paymentMethod": { "type": "string" },
+        "referenceNumber": { "type": "string" },
+        "status": { "type": "string" },
+        "fundSource": { "type": "string" },
+        "operatorName": { "type": "string" },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["type", "provider", "nominal", "profit", "referenceNumber"]
+    },
+    "StoreSetting": {
+      "title": "StoreSetting",
+      "description": "Pengaturan toko, saldo akun agen digital, dan ledger pengambilan margin fee",
+      "type": "object",
+      "properties": {
+        "updatedAt": { "type": "string" }
+      }
+    },
+    "TitipanAccount": {
+      "title": "TitipanAccount",
+      "description": "Daftar penitip dan saldo titipan pelanggan",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "balance": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "name", "balance"]
+    },
+    "StoreExpense": {
+      "title": "StoreExpense",
+      "description": "Pencatatan beban operasional dan pengeluaran kas toko",
+      "type": "object",
+      "properties": {
+        "id": { "type": "number" },
+        "category": { "type": "string" },
+        "title": { "type": "string" },
+        "amount": { "type": "number" },
+        "expenseDate": { "type": "string" },
+        "paidBy": { "type": "string" },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "category", "title", "amount", "expenseDate", "paidBy"]
+    }
+  },
+  "firestore": {
+    "/stok_aksesoris/{accessoryId}": {
+      "schema": { "$ref": "#/entities/StokAksesoris" },
+      "description": "Koleksi data stok produk aksesoris toko"
+    },
+    "/hp_imei/{phoneId}": {
+      "schema": { "$ref": "#/entities/HpImei" },
+      "description": "Koleksi smartphone yang dilacak dengan IMEI"
+    },
+    "/hp_imei/{phoneId}/serials/{serialId}": {
+      "schema": { "$ref": "#/entities/HpSerial" },
+      "description": "Sub-koleksi unit fisik dan nomor IMEI tiap handphone"
+    },
+    "/digital_transactions/{transactionId}": {
+      "schema": { "$ref": "#/entities/DigitalTransaction" },
+      "description": "Koleksi transaksi agen digital, transfer, tarik tunai, mutasi antar card, dan margin fee"
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/StoreSetting" },
+      "description": "Dokumen konfigurasi QRIS, saldo akun agen digital, dan catatan margin fee"
+    },
+    "/titipan_accounts/{titipanId}": {
+      "schema": { "$ref": "#/entities/TitipanAccount" },
+      "description": "Koleksi data penitip dan saldo titipan pelanggan"
+    },
+    "/store_expenses/{expenseId}": {
+      "schema": { "$ref": "#/entities/StoreExpense" },
+      "description": "Koleksi catatan pengeluaran dan beban operasional toko"
+    }
+  }
+}

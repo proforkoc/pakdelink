@@ -1,0 +1,54 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Koleksi Stok Aksesoris
+    match /stok_aksesoris/{accessoryId} {
+      allow read, write: if true;
+    }
+
+    // Koleksi HP & IMEI
+    match /hp_imei/{phoneId} {
+      allow read, write: if true;
+
+      // Sub-koleksi unit fisik / serial IMEI
+      match /serials/{serialId} {
+        allow read, write: if true;
+      }
+    }
+
+    // Koleksi Staf & Pengguna (RBAC & Hybrid Auth)
+    match /users/{userId} {
+      allow read, write: if true;
+    }
+
+    // Koleksi Transaksi Agen Digital & Margin Fee
+    match /digital_transactions/{transactionId} {
+      allow read, write: if true;
+    }
+
+    // Koleksi Pengaturan Toko, Saldo Akun & Ledger Margin Fee
+    match /settings/{settingId} {
+      allow read, write: if true;
+    }
+
+    // Koleksi Saldo Titipan Pelanggan
+    match /titipan_accounts/{titipanId} {
+      allow read, write: if true;
+    }
+
+    // Koleksi Pengeluaran & Beban Operasional Toko
+    match /store_expenses/{expenseId} {
+      allow read, write: if true;
+    }
+
+    // Uji koneksi server Firestore saat aplikasi boot
+    match /test/{docId} {
+      allow read: if true;
+    }
+
+    // Koleksi umum fallback
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "App BRI-Link dan E-Wallet",
+  "description": "Sistem Point of Sale (POS):  Agen BRILink/Transfer Bank, Top Up E-Wallet, PPOB, Laporan Keuangan Laba/Rugi, dan Cetak Struk Thermal 58mm/80mm.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
