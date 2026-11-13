@@ -21,6 +21,24 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      window.__showRawSourceNotice = function () {
+        var root = document.getElementById('root');
+        if (!root || root.childNodes.length > 0) return;
+        root.innerHTML =
+          '<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#f8fafc;font-family:system-ui,-apple-system,sans-serif;color:#0f172a;">' +
+            '<div style="max-width:460px;background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:24px;box-shadow:0 10px 25px rgba(15,23,42,0.08);">' +
+              '<h2 style="margin:0 0 8px;font-size:18px;font-weight:800;color:#4f46e5;">Build GitHub Pages Belum Aktif</h2>' +
+              '<p style="margin:0 0 12px;font-size:13px;line-height:1.6;color:#475569;">Halaman ini masih memuat kode sumber mentah karena GitHub Pages disetel ke <b>Deploy from a branch</b>.</p>' +
+              '<ol style="margin:0;padding-left:18px;font-size:13px;line-height:1.7;color:#334155;">' +
+                '<li>Buka repository GitHub Anda &rarr; <b>Settings</b> &rarr; <b>Pages</b>.</li>' +
+                '<li>Pada bagian <b>Build and deployment &rarr; Source</b>, ubah dari <i>Deploy from a branch</i> menjadi <b>GitHub Actions</b>.</li>' +
+                '<li>Buka tab <b>Actions</b> &rarr; pilih <b>Deploy to GitHub Pages</b> &rarr; klik <b>Run workflow</b> (atau push ulang).</li>' +
+              '</ol>' +
+            '</div>' +
+          '</div>';
+      };
+    </script>
+    <script type="module" src="/src/main.tsx" onerror="window.__showRawSourceNotice && window.__showRawSourceNotice()"></script>
   </body>
 </html>
